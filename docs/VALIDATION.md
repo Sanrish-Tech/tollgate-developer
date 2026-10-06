@@ -1,6 +1,6 @@
 # Release validation
 
-Developer 0.2.0 is a compiled Linux x86-64 developer preview.
+Developer 0.2.1 is a compiled Linux x86-64 developer preview.
 
 Local packaged checks on October 6, 2026 verified startup of all five services,
 authenticated dashboard login, rejection of unauthenticated dashboard access,

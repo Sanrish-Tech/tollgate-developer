@@ -164,6 +164,17 @@ services:
         condition: service_healthy
     platform: linux/amd64
     pull_policy: never
+    healthcheck:
+      test:
+      - CMD
+      - python
+      - -c
+      - import json,urllib.request; r=json.load(urllib.request.urlopen('http://localhost:3000/api/health',timeout=4));
+        assert r['ok'] and r['gateway_healthy']
+      interval: 5s
+      timeout: 5s
+      retries: 24
+      start_period: 30s
 volumes:
   pgdata: null
   redisdata: null
