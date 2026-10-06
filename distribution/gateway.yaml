@@ -1,0 +1,7 @@
+# Identity/control plane only. Bounded requests invoke reviewed Bedrock targets
+# in the proxy. The gateway receives no provider credentials or fallback routes.
+model_list: []
+general_settings:
+  allow_client_side_credentials: false
+  master_key: os.environ/LITELLM_MASTER_KEY
+  database_url: os.environ/DATABASE_URL

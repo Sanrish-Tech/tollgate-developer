@@ -1,0 +1,39 @@
+name: Verify packaged Developer release
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native-install:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Download and verify the fixed release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release download v0.2.0 --repo "$GITHUB_REPOSITORY" --dir "$RUNNER_TEMP/release"
+          cd "$RUNNER_TEMP/release"
+          sha256sum -c SHA256SUMS
+          tar -xzf tollgate-developer-0.2.0.tar.gz
+          docker load -i runtime-images.tar.gz
+      - name: Install without provider credentials
+        working-directory: ${{ runner.temp }}/release/tollgate-developer-0.2.0
+        run: |
+          python3 setup.py
+          docker compose --env-file .local/installation.env up -d --wait
+          python3 distribution/finish-setup.py .local --budget 5
+          python3 checks/smoke.py
+      - name: Verify backup and isolated restore
+        working-directory: ${{ runner.temp }}/release/tollgate-developer-0.2.0
+        run: python3 distribution/backup.py . "$RUNNER_TEMP/verified-backup" --verify-restore
+      - name: Stop only this disposable CI installation
+        if: always()
+        working-directory: ${{ runner.temp }}/release/tollgate-developer-0.2.0
+        run: |
+          if [ -f .local/installation.env ]; then
+            docker compose --env-file .local/installation.env down --volumes
+          fi

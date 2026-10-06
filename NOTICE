@@ -1,0 +1,13 @@
+TollGate Developer 0.2.0
+Copyright 2026 Sanrish Technologies
+
+This package includes components of TollGate Community previously released under
+Apache-2.0. The original licence and attribution are retained in licenses/.
+Sanrish modified proxy/app.py, proxy/bounded_store.py, proxy/controlplane.py,
+proxy/ledger.py, proxy/licensing.py and dashboard/users.py for Developer quotas,
+searchable history and fixed packaged entitlement verification, and compiled
+application modules for binary distribution. New proprietary modifications are
+covered by LICENSE; prior Apache rights remain intact.
+
+Third-party dependencies retain their own licences. Provider API services and
+TollGate trademarks are not licensed by an open-source component's licence.

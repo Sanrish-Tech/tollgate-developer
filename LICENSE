@@ -1,0 +1,34 @@
+TollGate Developer Binary Distribution Terms v1.0
+Copyright 2026 Sanrish Technologies
+
+These terms cover Sanrish's new proprietary Developer-edition modifications and
+its packaged distribution as a whole. Installer scripts and documentation may
+be copied and modified for installing and operating TollGate.
+
+You may download and run the official Developer package without a licence fee,
+including for your internal commercial workloads, within its included allowances:
+25,000 admitted requests per installation per UTC calendar month, two dashboard
+accounts, two governed member records and three projects. Provider usage and
+infrastructure are billed separately by their respective providers.
+
+You may not remove or circumvent the proprietary edition's entitlement controls,
+redistribute modified proprietary binaries, or sell this proprietary edition
+without a separate agreement with Sanrish Technologies, except to the extent
+applicable law or an applicable component licence expressly permits it.
+
+The supplied signed entitlement is valid until October 6, 2027, 00:00 UTC.
+A current entitlement and reviewed provider profiles are required to admit model
+requests. See README.md for the separate, earlier provider-profile review deadline.
+Contact info@trytollgate.com for renewal or a commercial deployment agreement.
+
+Existing rights in code previously released under Apache-2.0 are not revoked or
+restricted by these terms. Apache-2.0 and other third-party component licences
+continue to govern their respective components and take precedence for those
+components. Copies and attribution are supplied under licenses/ and in the images.
+These terms do not make the compiled package open-source or grant trademark rights.
+
+THE PROPRIETARY SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTIES OF ANY KIND.
+TO THE MAXIMUM EXTENT PERMITTED BY LAW, SANRISH TECHNOLOGIES IS NOT LIABLE FOR
+INDIRECT OR CONSEQUENTIAL LOSS OR DAMAGES ARISING FROM ITS USE. NO UPTIME SLA,
+GUARANTEED RESPONSE TIME OR 24x7 SUPPORT IS INCLUDED. MANDATORY STATUTORY RIGHTS
+ARE UNAFFECTED.

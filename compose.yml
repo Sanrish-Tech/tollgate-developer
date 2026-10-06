@@ -1,0 +1,170 @@
+# Packaged Developer edition. Local-only ports; preserve volumes when upgrading.
+name: tollgate-developer
+x-runtime:
+  restart: unless-stopped
+  security_opt: &id001
+  - no-new-privileges:true
+  cap_drop: &id002
+  - ALL
+  logging: &id003
+    driver: local
+    options:
+      max-size: 10m
+      max-file: '5'
+services:
+  db:
+    restart: unless-stopped
+    image: tollgate-community-db:0.1.0
+    environment:
+      POSTGRES_USER: tollgate
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?run initialize.py}
+      POSTGRES_DB: tollgate
+    volumes:
+    - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test:
+      - CMD
+      - pg_isready
+      - -h
+      - 127.0.0.1
+      - -U
+      - tollgate
+      - -d
+      - tollgate
+      interval: 3s
+      timeout: 3s
+      retries: 30
+    platform: linux/amd64
+    pull_policy: never
+  redis:
+    restart: unless-stopped
+    security_opt: *id001
+    cap_drop: *id002
+    logging: *id003
+    image: tollgate-community-redis:0.1.0
+    user: redis
+    command:
+    - redis-server
+    - --appendonly
+    - 'yes'
+    - --appendfsync
+    - everysec
+    - --maxmemory-policy
+    - noeviction
+    volumes:
+    - redisdata:/data
+    healthcheck:
+      test:
+      - CMD
+      - redis-cli
+      - ping
+      interval: 3s
+      timeout: 3s
+      retries: 30
+    platform: linux/amd64
+    pull_policy: never
+  gateway:
+    restart: unless-stopped
+    security_opt: *id001
+    cap_drop: *id002
+    logging: *id003
+    image: tollgate-community-gateway:0.1.0
+    environment:
+      DATABASE_URL: postgresql://tollgate:${POSTGRES_PASSWORD}@db:5432/tollgate
+      LITELLM_MASTER_KEY: ${LITELLM_MASTER_KEY:?run initialize.py}
+    volumes:
+    - ./distribution/gateway.yaml:/etc/tollgate/gateway.yaml:ro
+    command:
+    - --config
+    - /etc/tollgate/gateway.yaml
+    - --port
+    - '4000'
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test:
+      - CMD
+      - python
+      - -c
+      - import urllib.request; urllib.request.urlopen('http://localhost:4000/health/liveliness',timeout=4)
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 120s
+    platform: linux/amd64
+    pull_policy: never
+  proxy:
+    restart: unless-stopped
+    security_opt: *id001
+    cap_drop: *id002
+    logging: *id003
+    image: tollgate-developer-proxy:0.2.0
+    env_file:
+    - .local/provider.env
+    environment:
+      TOLLGATE_ENV: production
+      DATABASE_URL: postgresql://tollgate:${POSTGRES_PASSWORD}@db:5432/tollgate
+      REDIS_URL: redis://redis:6379/0
+      GATEWAY_URL: http://gateway:4000
+      LITELLM_MASTER_KEY: ${LITELLM_MASTER_KEY}
+      SHADOW_PLANNING: '0'
+      ENFORCEMENT_MODE: strict
+      TOLLGATE_FREEZE_WINDOWS: '1'
+      AWS_DEFAULT_REGION: us-east-1
+      AWS_REGION: us-east-1
+    volumes:
+    - ./distribution/developer-license.json:/etc/tollgate/developer-license.json:ro
+    ports:
+    - 127.0.0.1:${PROXY_PORT:-4000}:4000
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      gateway:
+        condition: service_healthy
+    healthcheck:
+      test:
+      - CMD
+      - python
+      - -c
+      - import urllib.request; urllib.request.urlopen('http://localhost:4000/health',timeout=4)
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    platform: linux/amd64
+    pull_policy: never
+  dashboard:
+    restart: unless-stopped
+    security_opt: *id001
+    cap_drop: *id002
+    logging: *id003
+    image: tollgate-developer-dashboard:0.2.0
+    environment:
+      TOLLGATE_ENV: production
+      TOLLGATE_ACCOUNTS_DATABASE_URL: postgresql://tollgate:${POSTGRES_PASSWORD}@db:5432/tollgate
+      GATEWAY_URL: http://gateway:4000
+      PROXY_URL: http://proxy:4000
+      LITELLM_MASTER_KEY: ${LITELLM_MASTER_KEY}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?run initialize.py}
+      SESSION_SECRET: ${SESSION_SECRET:?run initialize.py}
+      COOKIE_SECURE: '0'
+      TOLLGATE_ALLOW_INSECURE_COOKIES: '1'
+      STATE_DIR: /data
+      ALERT_WEBHOOK_URL: ${ALERT_WEBHOOK_URL:-}
+    volumes:
+    - dashboard_state:/data
+    ports:
+    - 127.0.0.1:${DASHBOARD_PORT:-3000}:3000
+    depends_on:
+      db:
+        condition: service_healthy
+      proxy:
+        condition: service_healthy
+    platform: linux/amd64
+    pull_policy: never
+volumes:
+  pgdata: null
+  redisdata: null
+  dashboard_state: null
