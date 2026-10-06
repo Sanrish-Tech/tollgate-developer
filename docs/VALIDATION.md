@@ -28,3 +28,5 @@ Linux x86-64 and verifies backup/restore. Check its current result before relyin
 on that additional validation. It makes no model calls. This preview has not
 been qualified for production throughput, high availability, every Cursor
 workflow, or every provider feature.
+
+0.2.1 also fixes dashboard startup readiness and updates urllib3/PyJWT in the proxy and identity gateway for upstream security fixes. The 0.2.0 public preview was withdrawn.

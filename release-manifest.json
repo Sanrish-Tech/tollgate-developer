@@ -4,11 +4,11 @@
   "status": "developer-preview",
   "architecture": "linux/amd64",
   "images": {
-    "tollgate-developer-proxy:0.2.0": "sha256:e3e70415be5bd4822d9bfc971a60932805738d0818f10cfed52bba6e359d3aa4",
+    "tollgate-developer-proxy:0.2.1": "sha256:31ede82bfe2cfa86b139a7aa165a5ff9746c61452795ada73544199a89232516",
     "tollgate-developer-dashboard:0.2.0": "sha256:e1a50eb0d077c66f5f268272770caa846e7d39ea5610a0ff79067f388dd66fcc",
     "tollgate-community-db:0.1.0": "sha256:6bba7f10890634cef92f1bb8bb06d5b87bfcc6d854e23778e577a9f5d1ff55a8",
     "tollgate-community-redis:0.1.0": "sha256:645ff83e4a28f748ffad07f068cad1dd5d5b4d11b6a20564c9602b4603b89776",
-    "tollgate-community-gateway:0.1.0": "sha256:8f766698a0b4db5b181cc4a33a117b0179d46ff8985e82f8212d5451cff40a0e"
+    "tollgate-developer-gateway:0.2.1": "sha256:53213289c17aedb41d53af2c0d9de0b7a6f615bb175e2a90b2eb26787b908180"
   },
   "limits": {
     "requests_per_utc_month": 25000,
