@@ -15,15 +15,24 @@ Requires Docker Engine with Compose v2, Python 3.10+, 8 GB available RAM and
 15 GB free disk. This release targets Linux x86-64. Apple Silicon requires
 x86 emulation and is supported only as a local development preview.
 
-1. Download `tollgate-developer-0.2.1.tar.gz`, `runtime-images.tar.gz` and
+1. Read the [v0.2.1 package licence](https://github.com/Sanrish-Tech/tollgate-developer/blob/v0.2.1/LICENSE) beside the download: it governs permitted use, allowances, expiry, support and liability.
+   Download `tollgate-developer-0.2.1.tar.gz`, `runtime-images.tar.gz` and
    `SHA256SUMS` from [the release](https://github.com/Sanrish-Tech/tollgate-developer/releases/tag/v0.2.1).
 2. In the download directory, verify both archives:
 
    ```sh
    shasum -a 256 -c SHA256SUMS
    tar -xzf tollgate-developer-0.2.1.tar.gz
-   docker load -i runtime-images.tar.gz
    cd tollgate-developer-0.2.1
+   cat LICENSE
+   ```
+
+   Review the displayed package licence before continuing. It allows internal
+   commercial workloads within the preview allowances; provider costs are separate.
+   This display does not change the licence or add a click-through agreement.
+
+   ```sh
+   docker load -i ../runtime-images.tar.gz
    python3 setup.py
    ```
 
