@@ -40,7 +40,7 @@ services:
     security_opt: *id001
     cap_drop: *id002
     logging: *id003
-    image: tollgate-community-redis:0.1.0
+    image: tollgate-developer-redis:0.2.1
     user: redis
     command:
     - redis-server

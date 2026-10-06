@@ -10,6 +10,6 @@ Images retain installed Python package metadata and upstream notices.
 - Python: https://docs.python.org/3/license.html .
 - Alpine and Python dependencies: retain their original notices in each image. The release manifest identifies exact image digests.
 
-Redis and PostgreSQL container operating-system packages were upgraded; PostgreSQL's entrypoint uses su-exec in place of gosu. LiteLLM's operating-system packages and tornado, pypdf, anyio and PyJWT were updated; its routing configuration is identity-only. These changes are made by Sanrish, not upstream endorsements.
+Redis and PostgreSQL container operating-system packages were upgraded; PostgreSQL's entrypoint uses su-exec in place of gosu. LiteLLM's operating-system packages and tornado, pypdf, anyio, PyJWT, urllib3 and fsspec were updated; its routing configuration is identity-only. These changes are made by Sanrish, not upstream endorsements.
 
 Provider APIs are external services with separate terms and charges. No provider credentials or private signing keys are included.
