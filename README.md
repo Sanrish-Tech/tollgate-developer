@@ -9,6 +9,11 @@ under [its distribution terms](LICENSE); it is not an unrestricted open-source e
 Your AI traffic and provider keys stay on your infrastructure. Provider and
 infrastructure charges are separate.
 
+## Existing installations: v0.2.2 update
+
+See [the update instructions](docs/UPDATE-0.2.2.md) for the tested proxy/dashboard update.
+A Git pull alone does not replace your running Docker images.
+
 ## Install
 
 Requires Docker Engine with Compose v2, Python 3.10+, 8 GB available RAM and
