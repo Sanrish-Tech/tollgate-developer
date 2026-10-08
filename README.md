@@ -11,10 +11,18 @@ infrastructure charges are separate.
 
 ## Existing installations: v0.2.2 update
 
+**v0.2.2 is an update for existing v0.2.1 preview installations, not a fresh-install launch.**
 See [the update instructions](docs/UPDATE-0.2.2.md) for the tested proxy/dashboard update.
 A Git pull alone does not replace your running Docker images.
 
-## Install
+## Fresh installations — on hold
+
+> **New deployments should await gateway licensing clearance.** The existing
+> identity gateway’s enterprise-code licensing clearance remains unresolved.
+> v0.2.2 updates only the proxy and dashboard; it does not resolve that issue.
+> The baseline steps below are retained for reference, not as an invitation
+> to start a new deployment. Existing preview users should use the update
+> instructions above.
 
 Requires Docker Engine with Compose v2, Python 3.10+, 8 GB available RAM and
 15 GB free disk. This release targets Linux x86-64. Apple Silicon requires
