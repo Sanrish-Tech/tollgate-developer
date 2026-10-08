@@ -1,0 +1,5 @@
+services:
+  proxy:
+    image: tollgate-developer-proxy:0.2.2
+  dashboard:
+    image: tollgate-developer-dashboard:0.2.2
