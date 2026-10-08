@@ -18,6 +18,8 @@ This stops currently running applications, dumps the database, copies dashboard 
 
 Current review deadline: October 14, 2026 inclusive UTC. Missing/expired profiles refuse requests. Check release updates before expiry. Do not extend the JSON dates yourself or remove the digest gate. The profile digest is checked inside the compiled release.
 
+The signed catalogue updater design and rollback procedure are documented in [CATALOGUE-UPDATES.md](CATALOGUE-UPDATES.md). No catalogue bundle is published by this source change; the current release deadline remains unchanged until a separately qualified signed update and compatible compiled runtime are released.
+
 Before an upgrade: stop inference, preserve financial/audit evidence, take and verify a backup, inspect release notes and profile changes, then load the new release images and test health. Keep the previous runtime archive and backup for recovery; a software rollback alone does not reverse schema changes.
 
 ## Incidents
